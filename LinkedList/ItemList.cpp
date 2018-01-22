@@ -27,12 +27,23 @@ void ItemList::Insert(int item)
 	ListNode *t;		//used to make the new node
 	n = head;
 
-	while (n != NULL)
-		n = n->next;
-	t = new ListNode;	//creates a temp node to store the new value
-	t->value = item;	//adds the data to the node
-	t->next = NULL;		//sets the next value to point to null because its at the end
-	n = t;		//set the n node to point to the new t node
+	if (head == NULL) {		//checks to see if the linked list is empty
+		t = new ListNode;	//creates a temp node to store the new value
+		t->value = item;	//adds the data to the node
+		t->next = NULL;		//sets the next value to point to null because its at the end
+		head = t;
+	}
+	else {
+		while (n != NULL) {
+			if (n->next == NULL)
+				break;
+			n = n->next;
+		}
+		t = new ListNode;	//creates a temp node to store the new value
+		t->value = item;	//adds the data to the node
+		t->next = NULL;		//sets the next value to point to null because its at the end
+		n->next = t;		//set the n node to point to the new t node
+	}
 }
 
 
