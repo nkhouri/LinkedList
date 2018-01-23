@@ -49,18 +49,31 @@ void ItemList::Insert(int item)
 
 void ItemList::Delete(int item)
 {
-	ListNode *n;
-	ListNode *t;
+	/*NOTES:
+	n should be the node being deletd
+	b should be the node behind n
+	t should be the n->next
+	when n is found, b should connect to n->next and n should be deleted
+	
+	PROCEDURE:
+	scan for n, make the b connection with the n->next, deallocate the n node*/
+
+
+	ListNode *n;			//navigates to the node being deleted
+	ListNode *b;			//stays behind the node being deleted
+	ListNode *f;			//stays at the front of n
 	n = head;
+	b = n;
 
 	while (n != NULL){
 		if (n->value == item) {
-			t = n->next;	//deletes the link between the desired node
+			f = n->next;	//assign the front node
+			b->next = f;			//link the back and front
 			free(n);		//deallocates the node from memory
 			break;			//leaves the loop
 		}
-		t = n;				//sets the t pointer to n
-		n = n->next;		//shifts the n to the next node in the line so t is always 1 behind
+		b = n;				//sets the b pointer to n
+		n = n->next;		//shifts the n to the next node in the line so b is always 1 behind
 	}
 }
 
