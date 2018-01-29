@@ -70,7 +70,9 @@ void ItemList::Delete(int item)
 			f = n->next;	//assign the front node
 			b->next = f;			//link the back and front
 			free(n);		//deallocates the node from memory
-			break;			//leaves the loop
+			n = f;
+			if (f == NULL)	//check to see if the end was deleted
+				break;
 		}
 		b = n;				//sets the b pointer to n
 		n = n->next;		//shifts the n to the next node in the line so b is always 1 behind

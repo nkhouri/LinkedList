@@ -4,59 +4,65 @@
 
 using namespace std;
 int main() {
-	ItemList i;
+	ItemList list;
 	ifstream input;
+	int numbers[20];		//hold the file so only need to open once
 
 	input.open("int.dat");	//open the file being used for the numbers
 	int numberRead;			//used to transfer the file int to the function insert
-	//insert the numbers into the list
+	//insert the numbers into the array
+	int count = 0;
 	while (!input.eof()) {
 		input >> numberRead;
-		i.Insert(numberRead);
+		numbers[count] = numberRead;
+		count++;
 	}
 	input.close();
+
+	//insert numbers into the list
+	for (int i = 0; i < 20; i++) {
+		list.Insert(numbers[i]);
+	}
 
 	//test to see if they are in the list
-	input.open("int.dat");
+	cout << "-----------------------------------------\n";
 	bool tester;
-	while (!input.eof()) {
-		input >> numberRead;
-		tester = i.IsThere(numberRead);
+	for (int i = 0; i < 20; i++) {
+		tester = list.IsThere(numbers[i]);
 		if (tester == true)
-			cout << numberRead << " is in the list!\n";
+			cout << numbers[i] << " is in the list!\n";
 		else
-			cout << numberRead << " is not in the list!\n";
+			cout << numbers[i] << " is not in the list!\n";
 	}
-	input.close();
 	//check how many items are in the list
-	cout << "There are " << i.GetLength() << " numbers in the array\n";
+	cout << "There are " << list.GetLength() << " numbers in the array\n";
 
 	//print the array
-	i.Print();
+	list.Print();
+	cout << "-----------------------------------------\n\n";
+	cout << "Deleting -47, 1926, and 2000 from the list...\n";
 
 	//remove -47, 1926, and 2000
-	i.Delete(-47);
-	i.Delete(1926);
-	i.Delete(2000);
+	list.Delete(-47);
+	list.Delete(1926);
+	list.Delete(2000);
 
+	cout << "-----------------------------------------\n";
 	//run tester to see if they were removed
-	input.open("int.dat");
-	while (!input.eof()) {
-		input >> numberRead;
-		tester = i.IsThere(numberRead);
+	for (int i = 0; i < 20; i++) {
+		tester = list.IsThere(numbers[i]);
 		if (tester == true)
-			cout << numberRead << " is in the list!\n";
+			cout << numbers[i] << " is in the list!\n";
 		else
-			cout << numberRead << " is not in the list!\n";
+			cout << numbers[i] << " is not in the list!\n";
 	}
-	input.close();
 
 	//check how many items are in the list
-	cout << "There are " << i.GetLength() << " numbers in the array\n";
+	cout << "There are " << list.GetLength() << " numbers in the array\n";
 
 	//print list
-	i.Print();
-
+	list.Print();
+	cout << "-----------------------------------------\n\n";
 
 	system("pause");
 	return 0;
